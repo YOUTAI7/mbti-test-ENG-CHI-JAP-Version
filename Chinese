@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 性格测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f3f4f6; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        h1 { color: #4a5568; }
+        .question { margin-top: 20px; }
+        .button { margin: 5px; padding: 10px 20px; border: none; border-radius: 5px; background-color: #4a90e2; color: #fff; cursor: pointer; }
+        .button:hover { background-color: #357ABD; }
+        .result { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MBTI 性格测试</h1>
+        <p>请选择每道题的选项，完成后将会显示你的MBTI性格类型。</p>
+
+        <div id="quiz">
+            <div class="question" id="q1">
+                <p>1. 你更倾向于：</p>
+                <button class="button" onclick="answer('E')">外向</button>
+                <button class="button" onclick="answer('I')">内向</button>
+            </div>
+            <div class="question" id="q2" style="display: none;">
+                <p>2. 你更关注：</p>
+                <button class="button" onclick="answer('S')">现实</button>
+                <button class="button" onclick="answer('N')">未来</button>
+            </div>
+            <div class="question" id="q3" style="display: none;">
+                <p>3. 你更看重：</p>
+                <button class="button" onclick="answer('T')">逻辑</button>
+                <button class="button" onclick="answer('F')">情感</button>
+            </div>
+            <div class="question" id="q4" style="display: none;">
+                <p>4. 你更喜欢：</p>
+                <button class="button" onclick="answer('J')">有计划</button>
+                <button class="button" onclick="answer('P')">随性</button>
+            </div>
+            <div class="question" id="q5" style="display: none;">
+                <p>5. 在社交场合中，你更倾向于：</p>
+                <button class="button" onclick="answer('E')">与很多人交流</button>
+                <button class="button" onclick="answer('I')">与几位好友深度交流</button>
+            </div>
+            <div class="question" id="q6" style="display: none;">
+                <p>6. 在思考问题时，你更注重：</p>
+                <button class="button" onclick="answer('S')">具体的事实</button>
+                <button class="button" onclick="answer('N')">抽象的概念</button>
+            </div>
+            <div class="question" id="q7" style="display: none;">
+                <p>7. 在做决定时，你更依赖：</p>
+                <button class="button" onclick="answer('T')">分析和逻辑</button>
+                <button class="button" onclick="answer('F')">感受和价值观</button>
+            </div>
+            <div class="question" id="q8" style="display: none;">
+                <p>8. 你更喜欢的生活方式是：</p>
+                <button class="button" onclick="answer('J')">有条理、可预测</button>
+                <button class="button" onclick="answer('P')">灵活、随时调整</button>
+            </div>
+            <div class="question" id="q9" style="display: none;">
+                <p>9. 在闲暇时间，你更愿意：</p>
+                <button class="button" onclick="answer('E')">外出活动或与人见面</button>
+                <button class="button" onclick="answer('I')">独自待在家或进行个人活动</button>
+            </div>
+            <div class="question" id="q10" style="display: none;">
+                <p>10. 当面临新问题时，你更倾向于：</p>
+                <button class="button" onclick="answer('S')">通过已知信息解决</button>
+                <button class="button" onclick="answer('N')">探索新的可能性</button>
+            </div>
+        </div>
+
+        <div id="result" class="result">
+            <h2>你的 MBTI 类型是：<span id="mbtiType"></span></h2>
+            <p>感谢参与测试！</p>
+        </div>
+    </div>
+
+    <script>
+        // 存储答案
+        const answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        let currentQuestion = 1;
+
+        function answer(type) {
+            answers[type]++; // 记录选择的答案
+            document.getElementById("q" + currentQuestion).style.display = "none"; // 隐藏当前问题
+            currentQuestion++;
+
+            // 显示下一个问题或计算结果
+            if (document.getElementById("q" + currentQuestion)) {
+                document.getElementById("q" + currentQuestion).style.display = "block";
+            } else {
+                calculateResult();
+            }
+        }
+
+        // 计算最终的MBTI类型
+        function calculateResult() {
+            const mbtiType = 
+                (answers.E > answers.I ? "E" : "I") +
+                (answers.S > answers.N ? "S" : "N") +
+                (answers.T > answers.F ? "T" : "F") +
+                (answers.J > answers.P ? "J" : "P");
+
+            document.getElementById("mbtiType").innerText = mbtiType;
+            document.getElementById("result").style.display = "block"; // 显示结果
+        }
+    </script>
+</body>
+</html>
