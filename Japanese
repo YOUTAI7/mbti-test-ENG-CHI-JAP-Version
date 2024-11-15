@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 性格診断テスト</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f3f4f6; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        h1 { color: #4a5568; }
+        .question { margin-top: 20px; }
+        .button { margin: 5px; padding: 10px 20px; border: none; border-radius: 5px; background-color: #4a90e2; color: #fff; cursor: pointer; }
+        .button:hover { background-color: #357ABD; }
+        .result { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MBTI 性格診断テスト</h1>
+        <p>各質問の選択肢を選んでください。テストが終了した後、あなたのMBTI性格タイプが表示されます。</p>
+
+        <div id="quiz">
+            <div class="question" id="q1">
+                <p>1. あなたはどちらかというと：</p>
+                <button class="button" onclick="answer('E')">外向的</button>
+                <button class="button" onclick="answer('I')">内向的</button>
+            </div>
+            <div class="question" id="q2" style="display: none;">
+                <p>2. あなたはどちらに焦点を当てますか：</p>
+                <button class="button" onclick="answer('S')">現実的な事実</button>
+                <button class="button" onclick="answer('N')">未来の可能性</button>
+            </div>
+            <div class="question" id="q3" style="display: none;">
+                <p>3. あなたが重視するのは：</p>
+                <button class="button" onclick="answer('T')">論理的な思考</button>
+                <button class="button" onclick="answer('F')">感情的な価値観</button>
+            </div>
+            <div class="question" id="q4" style="display: none;">
+                <p>4. あなたはどちらを好みますか：</p>
+                <button class="button" onclick="answer('J')">計画的な生活</button>
+                <button class="button" onclick="answer('P')">柔軟な生活</button>
+            </div>
+            <div class="question" id="q5" style="display: none;">
+                <p>5. 社交的な場面では、あなたはどちらに傾きますか：</p>
+                <button class="button" onclick="answer('E')">多くの人と話す</button>
+                <button class="button" onclick="answer('I')">少人数で深く話す</button>
+            </div>
+            <div class="question" id="q6" style="display: none;">
+                <p>6. 問題を考えるとき、あなたはどちらに重きを置きますか：</p>
+                <button class="button" onclick="answer('S')">具体的な事実</button>
+                <button class="button" onclick="answer('N')">抽象的な概念</button>
+            </div>
+            <div class="question" id="q7" style="display: none;">
+                <p>7. 意思決定をする際、あなたはどちらを重視しますか：</p>
+                <button class="button" onclick="answer('T')">分析と論理</button>
+                <button class="button" onclick="answer('F')">感情と価値観</button>
+            </div>
+            <div class="question" id="q8" style="display: none;">
+                <p>8. あなたの生活スタイルはどちらが好きですか：</p>
+                <button class="button" onclick="answer('J')">計画的で予測可能</button>
+                <button class="button" onclick="answer('P')">柔軟で調整可能</button>
+            </div>
+            <div class="question" id="q9" style="display: none;">
+                <p>9. 余暇の時間、あなたはどちらを好みますか：</p>
+                <button class="button" onclick="answer('E')">外に出かけたり、人と会ったりする</button>
+                <button class="button" onclick="answer('I')">家で過ごしたり、一人で活動する</button>
+            </div>
+            <div class="question" id="q10" style="display: none;">
+                <p>10. 新しい問題に直面したとき、あなたはどちらを選びますか：</p>
+                <button class="button" onclick="answer('S')">既知の情報で解決する</button>
+                <button class="button" onclick="answer('N')">新しい可能性を探る</button>
+            </div>
+        </div>
+
+        <div id="result" class="result">
+            <h2>あなたのMBTIタイプは：<span id="mbtiType"></span></h2>
+            <p>ご参加いただきありがとうございました！</p>
+        </div>
+    </div>
+
+    <script>
+        // 解答を保存
+        const answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        let currentQuestion = 1;
+
+        function answer(type) {
+            answers[type]++; // 選択した答えを記録
+            document.getElementById("q" + currentQuestion).style.display = "none"; // 現在の質問を隠す
+            currentQuestion++;
+
+            // 次の質問を表示するか、結果を計算
+            if (document.getElementById("q" + currentQuestion)) {
+                document.getElementById("q" + currentQuestion).style.display = "block";
+            } else {
+                calculateResult();
+            }
+        }
+
+        // 最終的なMBTIタイプを計算
+        function calculateResult() {
+            const mbtiType = 
+                (answers.E > answers.I ? "E" : "I") +
+                (answers.S > answers.N ? "S" : "N") +
+                (answers.T > answers.F ? "T" : "F") +
+                (answers.J > answers.P ? "J" : "P");
+
+            document.getElementById("mbtiType").innerText = mbtiType;
+            document.getElementById("result").style.display = "block"; // 結果を表示
+        }
+    </script>
+</body>
+</html>
