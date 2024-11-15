@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI Personality Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f3f4f6; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        h1 { color: #4a5568; }
+        .question { margin-top: 20px; }
+        .button { margin: 5px; padding: 10px 20px; border: none; border-radius: 5px; background-color: #4a90e2; color: #fff; cursor: pointer; }
+        .button:hover { background-color: #357ABD; }
+        .result { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MBTI Personality Test</h1>
+        <p>Please choose an option for each question. After completing the test, your MBTI personality type will be displayed.</p>
+
+        <div id="quiz">
+            <div class="question" id="q1">
+                <p>1. You tend to:</p>
+                <button class="button" onclick="answer('E')">Extroversion</button>
+                <button class="button" onclick="answer('I')">Introversion</button>
+            </div>
+            <div class="question" id="q2" style="display: none;">
+                <p>2. You focus more on:</p>
+                <button class="button" onclick="answer('S')">Facts</button>
+                <button class="button" onclick="answer('N')">Future possibilities</button>
+            </div>
+            <div class="question" id="q3" style="display: none;">
+                <p>3. You value more:</p>
+                <button class="button" onclick="answer('T')">Logic</button>
+                <button class="button" onclick="answer('F')">Emotions</button>
+            </div>
+            <div class="question" id="q4" style="display: none;">
+                <p>4. You prefer:</p>
+                <button class="button" onclick="answer('J')">Planning</button>
+                <button class="button" onclick="answer('P')">Spontaneity</button>
+            </div>
+            <div class="question" id="q5" style="display: none;">
+                <p>5. In social situations, you tend to:</p>
+                <button class="button" onclick="answer('E')">Interact with many people</button>
+                <button class="button" onclick="answer('I')">Have deep conversations with a few people</button>
+            </div>
+            <div class="question" id="q6" style="display: none;">
+                <p>6. When thinking about a problem, you focus more on:</p>
+                <button class="button" onclick="answer('S')">Concrete facts</button>
+                <button class="button" onclick="answer('N')">Abstract concepts</button>
+            </div>
+            <div class="question" id="q7" style="display: none;">
+                <p>7. When making decisions, you rely more on:</p>
+                <button class="button" onclick="answer('T')">Analysis and logic</button>
+                <button class="button" onclick="answer('F')">Feelings and values</button>
+            </div>
+            <div class="question" id="q8" style="display: none;">
+                <p>8. Your preferred lifestyle is:</p>
+                <button class="button" onclick="answer('J')">Organized and predictable</button>
+                <button class="button" onclick="answer('P')">Flexible and adjustable</button>
+            </div>
+            <div class="question" id="q9" style="display: none;">
+                <p>9. In your leisure time, you prefer:</p>
+                <button class="button" onclick="answer('E')">Going out or meeting people</button>
+                <button class="button" onclick="answer('I')">Staying home or engaging in solitary activities</button>
+            </div>
+            <div class="question" id="q10" style="display: none;">
+                <p>10. When facing a new problem, you tend to:</p>
+                <button class="button" onclick="answer('S')">Solve it with known information</button>
+                <button class="button" onclick="answer('N')">Explore new possibilities</button>
+            </div>
+        </div>
+
+        <div id="result" class="result">
+            <h2>Your MBTI Type is: <span id="mbtiType"></span></h2>
+            <p>Thank you for participating!</p>
+        </div>
+    </div>
+
+    <script>
+        // Store answers
+        const answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        let currentQuestion = 1;
+
+        function answer(type) {
+            answers[type]++; // Record the selected answer
+            document.getElementById("q" + currentQuestion).style.display = "none"; // Hide current question
+            currentQuestion++;
+
+            // Display the next question or calculate result
+            if (document.getElementById("q" + currentQuestion)) {
+                document.getElementById("q" + currentQuestion).style.display = "block";
+            } else {
+                calculateResult();
+            }
+        }
+
+        // Calculate the final MBTI type
+        function calculateResult() {
+            const mbtiType = 
+                (answers.E > answers.I ? "E" : "I") +
+                (answers.S > answers.N ? "S" : "N") +
+                (answers.T > answers.F ? "T" : "F") +
+                (answers.J > answers.P ? "J" : "P");
+
+            document.getElementById("mbtiType").innerText = mbtiType;
+            document.getElementById("result").style.display = "block"; // Show the result
+        }
+    </script>
+</body>
+</html>
